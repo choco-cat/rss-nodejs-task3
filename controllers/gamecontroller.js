@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const db = require('../db');
+require('../db');
 const Game = require('../models/game');
 
 router.get('/all', (req, res) => {

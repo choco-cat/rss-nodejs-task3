@@ -3,7 +3,7 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const db = require('../db');
+require('../db');
 const User = require('../models/user');
 
 router.post('/sighup', (req, res) => {
