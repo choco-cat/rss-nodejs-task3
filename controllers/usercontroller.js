@@ -1,12 +1,12 @@
-var express = require('express');
-var router = express.Router();
-var bcrypt = require('bcryptjs');
-var jwt = require('jsonwebtoken');
+const express = require('express');
+const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const db = require('../db');
 const User = require('../models/user');
 
-router.post('/signup', (req, res) => {
+router.post('/sighup', (req, res) => {
     User.create({
         full_name: req.body.user.full_name,
         username: req.body.user.username,

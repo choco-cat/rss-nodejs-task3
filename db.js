@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-                                //database username   password
+//database username password
 const sequelize = new Sequelize('gamedb', 'postgres', '123', {
     host: 'localhost',
     dialect: 'postgres',
