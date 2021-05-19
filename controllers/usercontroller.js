@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const bcrypt = require('bcryptjs');
+const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const sequelize = require('../db');
 const modelUser = require('../models/user');
@@ -10,7 +10,7 @@ router.post('/sighup', (req, res) => {
     User.create({
         full_name: req.body.user.full_name,
         username: req.body.user.username,
-        passwordhash: bcrypt.hashSync(req.body.user.password, 10),
+        passwordHash: bcrypt.hashSync(req.body.user.password, 10),
         email: req.body.user.email,
     })
         .then(
@@ -26,7 +26,7 @@ router.post('/sighup', (req, res) => {
                 res.status(500).send(err.message)
             }
         )
-})
+});
 
 router.post('/signin', (req, res) => {
     User.findOne({ where: { username: req.body.user.username } }).then(user => {
