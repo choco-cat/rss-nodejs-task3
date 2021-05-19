@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-require('./db');
 const user = require('./controllers/usercontroller');
 const game = require('./controllers/gamecontroller')
 

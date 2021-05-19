@@ -1,6 +1,9 @@
 const jwt = require('jsonwebtoken');
-// const sequelize =  require('sequelize');
-const User = require('../models/user');
+const sequelize = require('../db');
+const DataTypes = require('sequelize');
+const modelUser = require('../models/user');
+const User = modelUser(sequelize, DataTypes);
+console.log('---------------------------------- TOKEN');
 
 module.exports = function (req, res, next) {
     if (req.method == 'OPTIONS') {
@@ -8,7 +11,7 @@ module.exports = function (req, res, next) {
         next();
     } else {
         const sessionToken = req.headers.authorization;
-        console.log(sessionToken);
+        console.log('sessionToken ', sessionToken);
         if (!sessionToken) return res.status(403).send({ auth: false, message: "No token provided." });
         else {
             jwt.verify(sessionToken, 'lets_play_sum_games_man', (err, decoded) => {
