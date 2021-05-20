@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-    return sequelize.define('user', {
+    return sequelize.define("user", {
         full_name: {
             type: DataTypes.STRING,
             allowNull: false
@@ -22,5 +22,5 @@ module.exports = (sequelize, DataTypes) => {
                 isEmail: true
             }
         }
-    })
-}
+    });
+};

@@ -1,12 +1,13 @@
-const router = require('express').Router();
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
-const sequelize = require('../db');
-const modelUser = require('../models/user');
-const DataTypes = require('sequelize');
+const router = require("express").Router();
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
+const DataTypes = require("sequelize");
+const sequelize = require("../db");
+const modelUser = require("../models/user");
+
 const User = modelUser(sequelize, DataTypes);
 
-router.post('/sighup', (req, res) => {
+router.post("/signup", (req, res) => {
     User.create({
         full_name: req.body.user.full_name,
         username: req.body.user.username,
@@ -14,40 +15,40 @@ router.post('/sighup', (req, res) => {
         email: req.body.user.email,
     })
         .then(
-            function signupSuccess(user) {
-                let token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+            (user) => {
+                const token = jwt.sign({ id: user.id }, "lets_play_sum_games_man", { expiresIn: 60 * 60 * 24 });
                 res.status(200).json({
-                    user: user,
-                    token: token
-                })
+                    user,
+                    token
+                });
             },
 
-            function signupFail(err) {
-                res.status(500).send(err.message)
+            (err) => {
+                res.status(500).send(err.message);
             }
-        )
+        );
 });
 
-router.post('/signin', (req, res) => {
+router.post("/signin", (req, res) => {
     User.findOne({ where: { username: req.body.user.username } }).then(user => {
         if (user) {
-            bcrypt.compare(req.body.user.password, user.passwordHash, function (err, matches) {
+            bcrypt.compare(req.body.user.password, user.passwordHash, (err, matches) => {
                 if (matches) {
-                    var token = jwt.sign({ id: user.id }, 'lets_play_sum_games_man', { expiresIn: 60 * 60 * 24 });
+                    const token = jwt.sign({ id: user.id }, "lets_play_sum_games_man", { expiresIn: 60 * 60 * 24 });
                     res.json({
-                        user: user,
+                        user,
                         message: "Successfully authenticated.",
                         sessionToken: token
                     });
                 } else {
-                    res.status(502).send({ error: "Passwords do not match." })
+                    res.status(502).send({ error: "Passwords do not match." });
                 }
             });
         } else {
-            res.status(403).send({ error: "User not found." })
+            res.status(403).send({ error: "User not found." });
         }
 
-    })
-})
+    });
+});
 
 module.exports = router;
