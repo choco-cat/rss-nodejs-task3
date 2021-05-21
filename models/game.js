@@ -1,4 +1,7 @@
-module.exports = (sequelize, DataTypes) => sequelize.define('game', {
+const DataTypes = require("sequelize");
+const sequelize = require("../db");
+
+module.exports = sequelize.define('game', {
         title: {
             type: DataTypes.STRING(25),
             allowNull: false,
