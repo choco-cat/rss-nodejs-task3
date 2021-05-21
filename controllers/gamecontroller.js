@@ -1,10 +1,4 @@
 const router = require("express").Router();
-/*const DataTypes = require("sequelize");
-const sequelize = require("../db");
-const modelGame = require("../models/game");
-
-const Game = modelGame(sequelize, DataTypes); */
-
 const Game = require("../models/game");
 
 router.get("/all", (req, res) => {
